@@ -36,11 +36,11 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
-  // output: {
-  //   path: path.resolve(__dirname, "dist/"),
-  //   publicPath: "/dist/",
-  //   filename: "bundle.js"
-  // },
+  output: {
+    // path: path.resolve(__dirname, "dist/"),
+    publicPath: "/Book-Search-React",
+    // filename: "bundle.js"
+  },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
     port: 3000,
