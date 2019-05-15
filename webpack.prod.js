@@ -6,6 +6,6 @@ module.exports = merge(common, {
   mode: "production",
   // mode: "development"
   output: {
-    publicPath: '/Book-Search-React/dist'
+    publicPath: '/Book-Search-React/dist/',
   }
 });
