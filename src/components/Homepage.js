@@ -10,7 +10,8 @@ class Homepage extends Component {
       booksData: [],
       filterBooksData: [],
       isLoaded: false,
-      searchInput: ''
+      searchInput: '',
+      displayFilterData: ''
     }
   }
 
@@ -34,12 +35,14 @@ class Homepage extends Component {
   }
 
   filterData() {
+    const regex = new RegExp(this.state.searchInput, "i");
     let filterBooksData = this.state.booksData.filter((book) => {
-      return book.name.match(this.state.searchInput.replace(/\s+/g, ""))
+      return book.name.match(regex)
     })
     if (filterBooksData.length === 0) {
       this.setState({
-        filterBooksData: ['查無資料']
+        filterBooksData: ['查無資料'],
+        displayFilterData: this.state.searchInput
       })
     } else {
       this.setState({
@@ -47,6 +50,13 @@ class Homepage extends Component {
       })
     };
   };
+
+  handleKeyDown(e) {
+    // console.log('press')
+    if (e.keyCode === 13) {
+      this.filterData()
+    }
+  }
 
   render() {
     const { booksData, filterBooksData, searchInput } = this.state;
@@ -59,10 +69,10 @@ class Homepage extends Component {
           </div>
         </div>
         <div className="search-container">
-          <input className="search-bar" placeholder="請輸入書名" onBlur={() => this.updateInput()}></input>
-          <button onClick={() => this.filterData()}>搜尋</button>
+          <input className="search-bar" placeholder="請輸入書名" onChange={() => this.updateInput()} onKeyDown={(e) => { this.handleKeyDown(e) }}></input>
+          <button onClick={() => this.filterData()}     >搜尋</button>
         </div>
-        <BooksDisplay BooksData={this.state.filterBooksData} keyword={this.state.searchInput} />
+        <BooksDisplay BooksData={this.state.filterBooksData} keyword={this.state.displayFilterData} />
       </div>
     );
   }
